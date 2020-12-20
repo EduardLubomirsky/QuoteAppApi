@@ -36,6 +36,7 @@ COPY . /quote-app-api
 # Run code quality tools:
 RUN npm run lint
 RUN npm test
+RUN echo code climat reporter id $CODE_CLIMATE_REPORTER_ID
 
 # Upload test coverage report to CodeCov and CodeClimate.
 RUN export GIT_COMMITTED_AT="$(date +%s)" && /cc-test-reporter after-build -t lcov -r $(echo $CODE_CLIMATE_REPORTER_ID) -p ./coverage
