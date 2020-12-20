@@ -22,12 +22,13 @@ phases:
       - docker build --build-arg ENV_CONFIGURATION=production --build-arg CODE_CLIMATE_REPORTER_ID=$CODE_CLIMATE_REPORTER_ID --build-arg CI_NAME=$CI_NAME --build-arg GIT_COMMIT_SHA=$CODEBUILD_RESOLVED_SOURCE_VERSION --build-arg GIT_BRANCH=${GIT_BRANCH} -f Dockerfile_quality .
       - echo Code Quality check is passed
 
-      - echo Logging in to Amazon ECR.
-      - aws --version
-      - $(aws ecr get-login --no-include-email --region us-east-2)
+
 
   build:
     commands:
+      - echo Logging in to Amazon ECR.
+      - aws --version
+      - $(aws ecr get-login --no-include-email --region us-east-2)
       - echo Build has been started.
       - echo Building a Docker image.
       - docker build -t $DOCKER_REPOSITORY_URI:latest .
